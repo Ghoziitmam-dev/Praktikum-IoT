@@ -107,29 +107,29 @@ penjelasan di setiap baris kode nya dalam bentuk README.md!
 
 ## 1. Penjelasan Singkat Mengenai Detail Percobaan
 Praktikum ini bertujuan untuk membangun dan mengimplementasikan sistem Internet of Things (IoT) dasar melalui dua tahapan percobaan utama:
-* **Percobaan 1A (Akuisisi Data Sensor):** Mikrokontroler ESP32 diinstruksikan untuk membaca data lingkungan fisik, yakni suhu dan kelembaban, melalui sensor digital DHT22[cite: 1]. Hasil pembacaan ini kemudian diproses dan ditampilkan melalui layar Serial Monitor secara berkala setiap dua detik[cite: 1].
-* **Percobaan 2A (Kendali Aktuator):** Mengembangkan sistem akuisisi sebelumnya menjadi otomasi terpadu[cite: 1]. ESP32 tidak hanya membaca data sensor, tetapi juga menggunakannya sebagai acuan untuk mengendalikan aktuator mekanis berupa relay (yang disimulasikan dengan LED)[cite: 1]. Aktuator ini diprogram untuk menyala dan mati secara otomatis berdasarkan parameter suhu ambang batas yang telah ditetapkan[cite: 1].
+* **Percobaan 1A (Akuisisi Data Sensor):** Mikrokontroler ESP32 diinstruksikan untuk membaca data lingkungan fisik, yakni suhu dan kelembaban, melalui sensor digital DHT22. Hasil pembacaan ini kemudian diproses dan ditampilkan melalui layar Serial Monitor secara berkala setiap dua detik.
+* **Percobaan 2A (Kendali Aktuator):** Mengembangkan sistem akuisisi sebelumnya menjadi otomasi terpadu. ESP32 tidak hanya membaca data sensor, tetapi juga menggunakannya sebagai acuan untuk mengendalikan aktuator mekanis berupa relay (yang disimulasikan dengan LED). Aktuator ini diprogram untuk menyala dan mati secara otomatis berdasarkan parameter suhu ambang batas yang telah ditetapkan.
 
 ## 2. Library atau Dependencies yang Diperlukan
 Untuk menjalankan seluruh kode program (source code) pada praktikum ini, diperlukan instalasi beberapa komponen pada Arduino IDE:
-* **Board Manager ESP32:** Modul inti yang wajib diinstal agar perangkat lunak Arduino IDE mengenali, mengkompilasi, dan mengunggah kode program ke dalam board mikrokontroler ESP32 DevKit[cite: 1].
-* **DHT Sensor Library (`DHT.h`):** Pustaka eksternal yang diwajibkan untuk menjembatani protokol komunikasi data antara mikrokontroler dengan sensor DHT11 maupun DHT22[cite: 1].
+* **Board Manager ESP32:** Modul inti yang wajib diinstal agar perangkat lunak Arduino IDE mengenali, mengkompilasi, dan mengunggah kode program ke dalam board mikrokontroler ESP32 DevKit.
+* **DHT Sensor Library (`DHT.h`):** Pustaka eksternal yang diwajibkan untuk menjembatani protokol komunikasi data antara mikrokontroler dengan sensor DHT11 maupun DHT22.
 
 ## 3. Penjelasan Setiap Fungsi
 Program ini memanfaatkan fungsi-fungsi esensial, baik bawaan Arduino maupun dari library pihak ketiga:
-* `Serial.begin(115200)`: Berfungsi membuka jalur komunikasi serial dengan komputer pada *baud rate* 115200 agar mikrokontroler dapat mengirim teks dan angka ke antarmuka Serial Monitor[cite: 1].
-* `dht.begin()`: Menginisialisasi koneksi perangkat keras (*hardware*) sensor DHT22 agar bersiap melakukan proses pengambilan sampel data lingkungan[cite: 1].
-* `pinMode(RELAYPIN, OUTPUT)`: Mendeklarasikan pin GPIO (dalam hal ini GPIO 26) sebagai jalur transmisi sinyal keluar (output) yang menuju ke rangkaian relay aktuator[cite: 1].
-* `dht.readTemperature()`: Mengeksekusi pembacaan dari library DHT untuk mengambil nilai besaran suhu murni dalam satuan derajat Celsius[cite: 1].
-* `dht.readHumidity()`: Mengeksekusi pembacaan nilai persentase (%) kelembaban relatif (RH) dari udara sekitar[cite: 1].
-* `isnan(nilai)`: Fungsi diagnostik yang bertugas menginspeksi hasil pembacaan numerik untuk memverifikasi apakah variabel tersebut valid atau mengalami *error/Not a Number*[cite: 1].
-* `digitalWrite(pin, HIGH / LOW)`: Mengirimkan perintah tegangan secara digital ke pin relay. `HIGH` untuk mengalirkan arus (menyalakan relay) dan `LOW` untuk memutus arus (mematikan relay)[cite: 1].
-* `delay(2000)`: Menahan proses berjalannya eksekusi program (jeda) selama 2000 milidetik (2 detik) sebelum mengulang baris kode berikutnya[cite: 1].
+* `Serial.begin(115200)`: Berfungsi membuka jalur komunikasi serial dengan komputer pada *baud rate* 115200 agar mikrokontroler dapat mengirim teks dan angka ke antarmuka Serial Monitor.
+* `dht.begin()`: Menginisialisasi koneksi perangkat keras (*hardware*) sensor DHT22 agar bersiap melakukan proses pengambilan sampel data lingkungan.
+* `pinMode(RELAYPIN, OUTPUT)`: Mendeklarasikan pin GPIO (dalam hal ini GPIO 26) sebagai jalur transmisi sinyal keluar (output) yang menuju ke rangkaian relay aktuator.
+* `dht.readTemperature()`: Mengeksekusi pembacaan dari library DHT untuk mengambil nilai besaran suhu murni dalam satuan derajat Celsius.
+* `dht.readHumidity()`: Mengeksekusi pembacaan nilai persentase (%) kelembaban relatif (RH) dari udara sekitar.
+* `isnan(nilai)`: Fungsi diagnostik yang bertugas menginspeksi hasil pembacaan numerik untuk memverifikasi apakah variabel tersebut valid atau mengalami *error/Not a Number*.
+* `digitalWrite(pin, HIGH / LOW)`: Mengirimkan perintah tegangan secara digital ke pin relay. `HIGH` untuk mengalirkan arus (menyalakan relay) dan `LOW` untuk memutus arus (mematikan relay).
+* `delay(2000)`: Menahan proses berjalannya eksekusi program (jeda) selama 2000 milidetik (2 detik) sebelum mengulang baris kode berikutnya.
 
 ## 4. Penjelasan Percabangan / Conditional
 Logika bersyarat digunakan secara intensif untuk menavigasi alur program bergantung pada status perangkat keras:
-* **Kondisi Validasi (Percobaan 1A & 2A):** Program menggunakan struktur `if (isnan(kelembaban) || isnan(suhu))` untuk menyaring data cacat[cite: 1]. Jika fungsi pembacaan mengembalikan sinyal NaN (gagal), blok kode ini akan mencegat proses dan memunculkan peringatan "Gagal membaca data dari sensor DHT22!" ke pengguna[cite: 1].
-* **Kondisi Kendali Aktuator Tunggal (Percobaan 2A):** Struktur `if (suhu > suhuThreshold)` bertindak sebagai gerbang logika. Jika variabel suhu memuat angka yang lebih besar dari batas parameter *threshold* (30.0°C), program masuk ke kondisi *true* dan memanggil instruksi `HIGH` pada relay[cite: 1]. Jika suhu lebih rendah atau sama, program mengeksekusi blok `else` dan mempertahankan sinyal `LOW`[cite: 1].
+* **Kondisi Validasi (Percobaan 1A & 2A):** Program menggunakan struktur `if (isnan(kelembaban) || isnan(suhu))` untuk menyaring data cacat. Jika fungsi pembacaan mengembalikan sinyal NaN (gagal), blok kode ini akan mencegat proses dan memunculkan peringatan "Gagal membaca data dari sensor DHT22!" ke pengguna.
+* **Kondisi Kendali Aktuator Tunggal (Percobaan 2A):** Struktur `if (suhu > suhuThreshold)` bertindak sebagai gerbang logika. Jika variabel suhu memuat angka yang lebih besar dari batas parameter *threshold* (30.0°C), program masuk ke kondisi *true* dan memanggil instruksi `HIGH` pada relay. Jika suhu lebih rendah atau sama, program mengeksekusi blok `else` dan mempertahankan sinyal `LOW`.
 * **Kondisi Kendali Histerisis (Modifikasi 2A):** Penggunaan rantai kondisional `if` (batas atas) dan `else if` (batas bawah). Jika suhu berada tepat di antara dua kondisi tersebut, blok evaluasi dilewati, dan mikrokontroler mempertahankan *state* aktuator terakhir (tidak ada instruksi `digitalWrite` yang dieksekusi).
 
 ## 5. Penjelasan Code (Modifikasi Khusus Praktikum)
@@ -138,6 +138,6 @@ Logika bersyarat digunakan secara intensif untuk menavigasi alur program bergant
 
 ## 6. Jawaban Pertanyaan Praktikum yang Berkaitan dengan Code
 * **Pentingnya fungsi `isnan()`:** Fungsi ini bertindak sebagai perisai program dari variabel kosong. Tanpa perlindungan baris kode fungsi tersebut, pencetakan dan kalkulasi matematis terhadap sinyal sensor yang putus akan mengakibatkan sistem *crash* atau menghasilkan parameter perintah yang salah.
-* **Alasan teknis penulisan perintah `delay(2000)`:** Jeda baris kode ini bersifat wajib (mandatory) sesuai dengan dokumentasi spesifikasi (datasheet) sensor DHT22. Sensor memerlukan waktu pemulihan perangkat keras minimal sekitar 2 detik per siklus untuk menghasilkan paket konversi analog ke digital yang sempurna[cite: 1].
-* **Peran krusial variabel ambang batas (*threshold*):** Pendeklarasian konstanta ini sangat krusial karena mikrokontroler tidak memiliki akal untuk menilai sendiri kapan suatu lingkungan dianggap panas. Nilai *threshold* ini ditanamkan dalam memori kode untuk memberikan referensi matematis absolut (trigger) bagi program `if` saat mengaktifkan relay[cite: 1].
+* **Alasan teknis penulisan perintah `delay(2000)`:** Jeda baris kode ini bersifat wajib (mandatory) sesuai dengan dokumentasi spesifikasi (datasheet) sensor DHT22. Sensor memerlukan waktu pemulihan perangkat keras minimal sekitar 2 detik per siklus untuk menghasilkan paket konversi analog ke digital yang sempurna.
+* **Peran krusial variabel ambang batas (*threshold*):** Pendeklarasian konstanta ini sangat krusial karena mikrokontroler tidak memiliki akal untuk menilai sendiri kapan suatu lingkungan dianggap panas. Nilai *threshold* ini ditanamkan dalam memori kode untuk memberikan referensi matematis absolut (trigger) bagi program `if` saat mengaktifkan relay.
 
