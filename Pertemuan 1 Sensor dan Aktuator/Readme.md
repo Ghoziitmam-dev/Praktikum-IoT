@@ -1,48 +1,55 @@
-* Pertanyaan praktikum percobaan 1A 
+Pertanyaan praktikum percobaan 1A 
 Modifikasi program agar data suhu dan kelembaban dirata-ratakan dari 5 kali 
 pembacaan sebelum ditampilkan
 
-
-#include <DHT.h>
-#define DHTPIN 4
-#define DHTTYPE DHT22
-DHT dht(DHTPIN, DHTTYPE);
-void setup() {
-  Serial.begin(115200);
-  dht.begin();
-  Serial.println("Memulai akuisisi data rata-rata (menunggu 10 detik)...");
-}
-void loop() {
-  float totalSuhu = 0;
-  float totalKelembaban = 0;
-  int bacaanValid = 0; // Menghitung berapa kali pembacaan berhasil
-  // Melakukan 5 kali pengambilan sampel
-  for (int i = 0; i < 5; i++) {
-    float suhu = dht.readTemperature();
-    float kelembaban = dht.readHumidity();
-    // Memastikan hanya data yang valid yang dijumlahkan
-    if (!isnan(suhu) && !isnan(kelembaban)) {
-      totalSuhu += suhu;
-      totalKelembaban += kelembaban;
-      bacaanValid++;
-    } else {
-      Serial.println("Gagal 1 sampel, melanjutkan...");
-    }
-    delay(2000); // Tetap butuh jeda perangkat keras 2 detik per sampel
-  }
-  // Menghitung dan menampilkan rata-rata jika ada data valid
-  if (bacaanValid > 0) {
-    float rataSuhu = totalSuhu / bacaanValid;
-    float rataKelembaban = totalKelembaban / bacaanValid;
-    Serial.print("Rata-rata Suhu: ");
-    Serial.print(rataSuhu);
-    Serial.print(" °C, Rata-rata Kelembaban: ");
-    Serial.print(rataKelembaban);
-    Serial.println("%");
-  } else {
-    Serial.println("Gagal membaca 5 data berturut-turut!");
-  }
-}
+          #include <DHT.h>
+          #define DHTPIN 4
+          #define DHTTYPE DHT22
+          
+          DHT dht(DHTPIN, DHTTYPE);
+          
+          void setup() {
+            Serial.begin(115200);
+            dht.begin();
+            Serial.println("Memulai akuisisi data rata-rata (menunggu 10 detik)...");
+          }
+          
+          void loop() {
+            float totalSuhu = 0;
+            float totalKelembaban = 0;
+            int bacaanValid = 0; // Menghitung berapa kali pembacaan berhasil
+          
+            // Melakukan 5 kali pengambilan sampel
+            for (int i = 0; i < 5; i++) {
+              float suhu = dht.readTemperature();
+              float kelembaban = dht.readHumidity();
+          
+              // Memastikan hanya data yang valid yang dijumlahkan
+              if (!isnan(suhu) && !isnan(kelembaban)) {
+                totalSuhu += suhu;
+                totalKelembaban += kelembaban;
+                bacaanValid++;
+              } else {
+                Serial.println("Gagal 1 sampel, melanjutkan...");
+              }
+              
+              delay(2000); // Tetap butuh jeda perangkat keras 2 detik per sampel
+            }
+          
+            // Menghitung dan menampilkan rata-rata jika ada data valid
+            if (bacaanValid > 0) {
+              float rataSuhu = totalSuhu / bacaanValid;
+              float rataKelembaban = totalKelembaban / bacaanValid;
+              
+              Serial.print("Rata-rata Suhu: ");
+              Serial.print(rataSuhu);
+              Serial.print(" °C, Rata-rata Kelembaban: ");
+              Serial.print(rataKelembaban);
+              Serial.println("%");
+            } else {
+              Serial.println("Gagal membaca 5 data berturut-turut!");
+            }
+          }
 <img width="1280" height="720" alt="WhatsApp Image 2026-09-03 at 16 16 31" src="https://github.com/user-attachments/assets/7162e393-b8b3-4975-9339-719430b4db81" />
 
 * Pertanyaan Praktikum 2A
