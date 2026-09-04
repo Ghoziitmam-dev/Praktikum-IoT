@@ -1,4 +1,4 @@
-Pertanyaan praktikum percobaan 1A 
+* Pertanyaan praktikum percobaan 1A 
 Modifikasi program agar data suhu dan kelembaban dirata-ratakan dari 5 kali 
 pembacaan sebelum ditampilkan
 
@@ -55,7 +55,53 @@ pembacaan sebelum ditampilkan
 * Pertanyaan Praktikum 2A
 Modifikasi program agar menggunakan dua ambang batas (histerisis), misalnya aktuator 
 menyala pada suhu di atas 30°C dan baru mati pada suhu di bawah 28°C, dan berikan 
-penjelasan di setiap baris kode nya dalam bentuk README.md! 
+penjelasan di setiap baris kode nya dalam bentuk README.md!
+
+          #include <DHT.h>
+          #define DHTPIN 4
+          #define DHTTYPE DHT22
+          #define RELAYPIN 26
+          
+          DHT dht(DHTPIN, DHTTYPE);
+          
+          // Mendefinisikan dua ambang batas untuk histerisis
+          const float suhuBatasAtas = 30.0;
+          const float suhuBatasBawah = 28.0;
+          
+          void setup() {
+            Serial.begin(115200);
+            dht.begin();
+            pinMode(RELAYPIN, OUTPUT);
+            digitalWrite(RELAYPIN, LOW); // pastikan aktuator mati di awal
+          }
+          
+          void loop() {
+            float suhu = dht.readTemperature();
+          
+            if (isnan(suhu)) {
+              Serial.println("Gagal membaca data sensor!");
+            } else {
+              Serial.print("Suhu: ");
+              Serial.print(suhu);
+              Serial.print(" °C -> ");
+          
+              // Kendali aktuator menggunakan Histerisis
+              if (suhu > suhuBatasAtas) {
+                digitalWrite(RELAYPIN, HIGH); // aktifkan relay
+                Serial.println("Aktuator: ON");
+              } 
+              else if (suhu < suhuBatasBawah) {
+                digitalWrite(RELAYPIN, LOW); // matikan relay
+                Serial.println("Aktuator: OFF");
+              } 
+              else {
+                // Kondisi suhu di antara batas bawah dan batas atas (28 - 30)
+                // Relay mempertahankan status terakhirnya (tidak ada perubahan)
+                Serial.println("Aktuator: Mempertahankan Status (Stabil)");
+              }
+            }
+            delay(2000);
+          }
 
 <img width="900" height="1600" alt="WhatsApp Image 2026-09-01 at 22 40 12" src="https://github.com/user-attachments/assets/a99e7497-9964-43ed-9608-33cc979c1d42" />
 
