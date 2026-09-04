@@ -1,4 +1,4 @@
-##** Pertanyaan praktikum percobaan 1A **
+## **Pertanyaan praktikum percobaan 1A**
 Modifikasi program agar data suhu dan kelembaban dirata-ratakan dari 5 kali 
 pembacaan sebelum ditampilkan
 
