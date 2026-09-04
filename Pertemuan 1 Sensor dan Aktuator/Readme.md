@@ -1,6 +1,8 @@
 * Pertanyaan praktikum percobaan 1A 
 Modifikasi program agar data suhu dan kelembaban dirata-ratakan dari 5 kali 
 pembacaan sebelum ditampilkan
+
+
 #include <DHT.h>
 #define DHTPIN 4
 #define DHTTYPE DHT22
@@ -23,8 +25,8 @@ void loop() {
     float suhu = dht.readTemperature();
     float kelembaban = dht.readHumidity();
 
-    // Memastikan hanya data yang valid yang dijumlahkan
-    if (!isnan(suhu) && !isnan(kelembaban)) {
+  // Memastikan hanya data yang valid yang dijumlahkan
+  if (!isnan(suhu) && !isnan(kelembaban)) {
       totalSuhu += suhu;
       totalKelembaban += kelembaban;
       bacaanValid++;
@@ -32,7 +34,7 @@ void loop() {
       Serial.println("Gagal 1 sampel, melanjutkan...");
     }
     
-    delay(2000); // Tetap butuh jeda perangkat keras 2 detik per sampel
+   delay(2000); // Tetap butuh jeda perangkat keras 2 detik per sampel
   }
 
   // Menghitung dan menampilkan rata-rata jika ada data valid
