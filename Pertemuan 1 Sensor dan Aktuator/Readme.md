@@ -6,42 +6,34 @@ pembacaan sebelum ditampilkan
 #include <DHT.h>
 #define DHTPIN 4
 #define DHTTYPE DHT22
-
 DHT dht(DHTPIN, DHTTYPE);
-
 void setup() {
   Serial.begin(115200);
   dht.begin();
   Serial.println("Memulai akuisisi data rata-rata (menunggu 10 detik)...");
 }
-
 void loop() {
   float totalSuhu = 0;
   float totalKelembaban = 0;
   int bacaanValid = 0; // Menghitung berapa kali pembacaan berhasil
-
   // Melakukan 5 kali pengambilan sampel
   for (int i = 0; i < 5; i++) {
     float suhu = dht.readTemperature();
     float kelembaban = dht.readHumidity();
-
-  // Memastikan hanya data yang valid yang dijumlahkan
-  if (!isnan(suhu) && !isnan(kelembaban)) {
+    // Memastikan hanya data yang valid yang dijumlahkan
+    if (!isnan(suhu) && !isnan(kelembaban)) {
       totalSuhu += suhu;
       totalKelembaban += kelembaban;
       bacaanValid++;
     } else {
       Serial.println("Gagal 1 sampel, melanjutkan...");
     }
-    
-   delay(2000); // Tetap butuh jeda perangkat keras 2 detik per sampel
+    delay(2000); // Tetap butuh jeda perangkat keras 2 detik per sampel
   }
-
   // Menghitung dan menampilkan rata-rata jika ada data valid
   if (bacaanValid > 0) {
     float rataSuhu = totalSuhu / bacaanValid;
     float rataKelembaban = totalKelembaban / bacaanValid;
-    
     Serial.print("Rata-rata Suhu: ");
     Serial.print(rataSuhu);
     Serial.print(" °C, Rata-rata Kelembaban: ");
