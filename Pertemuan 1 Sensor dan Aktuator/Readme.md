@@ -1,4 +1,4 @@
-* Pertanyaan praktikum percobaan 1A 
+##** Pertanyaan praktikum percobaan 1A **
 Modifikasi program agar data suhu dan kelembaban dirata-ratakan dari 5 kali 
 pembacaan sebelum ditampilkan
 
@@ -52,7 +52,7 @@ pembacaan sebelum ditampilkan
           }
 <img width="1280" height="720" alt="WhatsApp Image 2026-09-03 at 16 16 31" src="https://github.com/user-attachments/assets/7162e393-b8b3-4975-9339-719430b4db81" />
 
-* Pertanyaan Praktikum 2A
+## **Pertanyaan Praktikum 2A**
 Modifikasi program agar menggunakan dua ambang batas (histerisis), misalnya aktuator 
 menyala pada suhu di atas 30°C dan baru mati pada suhu di bawah 28°C, dan berikan 
 penjelasan di setiap baris kode nya dalam bentuk README.md!
