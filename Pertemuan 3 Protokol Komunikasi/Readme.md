@@ -1,5 +1,10 @@
 # Percobaan 3A: Komunikasi Data Menggunakan HTTP
 
+#  Dokumentasi
+
+![Uploading WhatsApp Image 2026-09-15 at 13.45.04.jpeg…]()
+
+
 ## 1. Detail Percobaan Singkat
 Percobaan ini bertujuan untuk mengimplementasikan pengiriman data sensor (dummy) dari ESP32 ke sebuah server pengujian (`httpbin.org/post`) menggunakan protokol HTTP dengan metode POST. Data yang dikirimkan diformat menggunakan JSON. Modifikasi dilakukan dengan menambahkan data `waktu_nyala_ms` menggunakan fungsi `millis()`.
 
@@ -24,22 +29,25 @@ Percobaan ini bertujuan untuk mengimplementasikan pengiriman data sensor (dummy)
 
 ## 5. Jawaban Pertanyaan Praktikum (3.5.4)
 
+
 Berikut adalah potongan kode pada fungsi `loop()` yang telah ditambahkan fitur kalkulasi waktu menggunakan fungsi `millis()` sebelum diserialisasi ke dalam format JSON:
-```cpp
-// 1. Membuat objek data dalam format JSON
-JsonDocument doc;
-doc["suhu"] = 28.5;         // Data suhu dummy (°C)
-doc["kelembaban"] = 65.0;   // Data kelembaban dummy (%)
 
-// --- MODIFIKASI: Penambahan Data Waktu (millis) ---
-unsigned long waktuMilis = millis(); 
-doc["waktu_nyala_ms"] = waktuMilis; 
-// ---------------------------------------------------
+  ```cpp
+        // 1. Membuat objek data dalam format JSON
+        JsonDocument doc;
+        doc["suhu"] = 28.5;         // Data suhu dummy (°C)
+        doc["kelembaban"] = 65.0;   // Data kelembaban dummy (%)
+        
+        // --- MODIFIKASI: Penambahan Data Waktu (millis) ---
+        unsigned long waktuMilis = millis(); 
+        doc["waktu_nyala_ms"] = waktuMilis; 
+        // ---------------------------------------------------
+        
+        // 2. Mengubah objek JSON menjadi String
+        String requestBody;
+        serializeJson(doc, requestBody);
 
-// 2. Mengubah objek JSON menjadi String
-String requestBody;
-serializeJson(doc, requestBody);
+d
 
-# 6. Dokumentasi
-*(Ganti teks di bawah ini dengan link/foto praktikum Anda)*
-* **Skematik:** *[Hanya menggunakan ESP32 langsung colok USB]*
+
+
