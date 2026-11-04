@@ -2,8 +2,8 @@
 #include <PubSubClient.h>
 
 // Konfigurasi WiFi & MQTT Broker
-const char* ssid = "NAMA_WIFI_KAMU";
-const char* password = "PASSWORD_WIFI";
+const char* ssid = "Sumbangan";
+const char* password = "kvaratskhelia";
 const char* mqtt_server = "broker.hivemq.com";
 const int mqtt_port = 1883;
 
