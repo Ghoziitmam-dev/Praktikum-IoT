@@ -63,7 +63,9 @@ Program Python dimodifikasi menggunakan fungsi `.rolling(window=5).mean()` bawaa
 ## 8. Foto Proses Praktikum / Perangkaian
 <img width="1000" height="400" alt="WhatsApp Image 2026-10-20 at 14 12 16" src="https://github.com/user-attachments/assets/a96940c3-5b1d-4167-ae11-b649d420a849" />
 
-<img width="1000" height="400" alt="WhatsApp Image 2026-10-20 at 14 12 16" src="https://github.com/user-attachments/assets/ecb9ac18-5238-4296-850d-d904c977061d" />
+
+<img width="1041" height="690" alt="WhatsApp Image 2026-10-20 at 14 14 47" src="https://github.com/user-attachments/assets/0418f93d-9c89-4f72-8b15-51865cd6446a" />
+
 
 
 
